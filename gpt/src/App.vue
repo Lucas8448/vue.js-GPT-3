@@ -28,11 +28,56 @@ export default {
   },
   computed: {
     currentPreset: function () {
-      return {
-        name: this.selectedPreset.name,
-        url: this.selectedPreset.url,
-        start: this.selectedPreset.start,
-        body: { ...this.selectedPreset.body, prompt: this.selectedPreset.start + ' ' + this.prompt }
+      if (this.selectedPreset.name === "Chat") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: this.prompt }
+        }
+      } else if (this.selectedPreset.name === "Outline Essay") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Create an outline for an essay about: " + this.prompt }
+        }
+      } else if (this.selectedPreset.name === "Sarcastic") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Reply to this in a sarcastic manner: " + this.prompt }
+        }
+      } else if (this.selectedPreset.name === "Write Essay") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Write an essay about: " + this.prompt }
+        }
+      } else if (this.selectedPreset.name === "Explain Code") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Explain this code: " +  this.prompt } 
+        }
+      } else if (this.selectedPreset.name === "Rewrite") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Rewrite this: " + this.prompt }
+        }
+      } else if (this.selectedPreset.name === "Shakespear Rewrite") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Rewrite this as if shakespear wrote it: " + this.prompt }
+        }
+      } else if (this.selectedPreset.name == "Angry chat") {
+        return {
+          name: this.selectedPreset.name,
+          url: this.selectedPreset.url,
+          body: { ...this.selectedPreset.body, prompt: "Reply in a rude manner using curse words: " + this.prompt }
+        }
+      } else {
+        console.log("no matching preset")
       }
     }
   },
@@ -45,7 +90,7 @@ export default {
           "model": "text-davinci-003",
           "prompt": this.prompt,
           "temperature": 0,
-          "max_tokens": 150,
+          "max_tokens": 2000,
           "top_p": 1,
           "frequency_penalty": 0,
           "presence_penalty": 0.6,
@@ -54,32 +99,81 @@ export default {
       },
       {
         name: "Outline Essay",
-        url: 'https://api.openai.com/v1/engines/davinci/completions',
+        url: 'https://api.openai.com/v1/completions',
         start: "Create an outline for an essay about: ",
-        body:{
-          "engine": "davinci",
+        body: {
+          "model": "text-davinci-003",
           "prompt": "Create an outline for an essay about: " + this.prompt,
+          "max_tokens": 2000,
+          "stop": ["\"\"\""]
+        }
+      },
+      {
+        name: "Write Essay",
+        url: 'https://api.openai.com/v1/completions',
+        start: "Write an essay about: ",
+        body: {
+          "model": "text-davinci-003",
+          "prompt": "Write an essay about: " + this.prompt,
+          "max_tokens": 2000,
+          "stop": ["\"\"\""]
+        }
+      },
+      {
+        name: "Rewrite",
+        url: 'https://api.openai.com/v1/completions',
+        start: "Rewrite this: ",
+        body: {
+          "model": "text-davinci-003",
+          "prompt": "Rewrite this: " + this.prompt,
+          "max_tokens": 2000,
+          "stop": ["\"\"\""]
+        }
+      },
+      {
+        name: "Shakespear Rewrite",
+        url: 'https://api.openai.com/v1/completions',
+        start: "Rewrite this as if shakespear wrote it: ",
+        body: {
+          "model": "text-davinci-003",
+          "prompt": "Rewrite this as if shakespear wrote it: ",
+          "max_tokens": 2000,
           "stop": ["\"\"\""]
         }
       },
       {
         name: "Explain Code",
-        url: 'https://api.openai.com/v1/engines/code-davinci/completions',
+        url: 'https://api.openai.com/v1/completions',
         body: {
-          "engine": "code-davinci",
-          "prompt": this.prompt,
+          "model": "text-davinci-003",
+          "prompt": "Explain this code: " + this.prompt,
+          "max_tokens": 2000,
           "stop": ["\"\"\""]
         }
       },
       {
-        name: "Sarcasm",
-        url: 'https://api.openai.com/v1/engines/davinci/completions',
+        name: "Sarcastic",
+        url: 'https://api.openai.com/v1/completions',
+        start: "Reply to this in a sarcastic manner: ",
         body: {
-          "engine": "davinci",
-          "prompt": this.prompt,
-          "temperature": 0.9,
-          "max_tokens": 1000,
+          "model": "text-davinci-003",
+          "prompt": "Reply to this in a sarcastic manner: " + this.prompt,
+          "max_tokens": 2000,
           "stop": ["\"\"\""]
+        }
+      },
+      {
+        name: "Angry chat",
+        url: 'https://api.openai.com/v1/completions',
+        body: {
+          "model": "text-davinci-003",
+          "prompt": this.prompt,
+          "temperature": 0,
+          "max_tokens": 2000,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0.6,
+          "stop": [" Human:", " AI:"]
         }
       }
     ]
@@ -87,13 +181,13 @@ export default {
   },
   methods: {
     async getResponse() {
-      this.messages.push({ id: Date.now(), sender: "user", text: this.prompt })
+      this.messages.push({ id: Date.now(), sender: "You", text: this.prompt })
       try {
         console.log(this.currentPreset.url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`
+            'Authorization': `Bearer YOUR_API_KEY`
           },
           body: JSON.stringify(this.currentPreset.body)
         })
@@ -101,13 +195,13 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`
+            'Authorization': `Bearer YOUR_API_KEY`
           },
           body: JSON.stringify(this.currentPreset.body)
         });
         this.prompt = "";
         const json = await response.json();
-        this.messages.push({ id: Date.now(), sender: "chatbot", text: json.choices[0].text });
+        this.messages.push({ id: Date.now(), sender: "AI", text: json.choices[0].text });
       } catch (error) {
         console.error(error);
       }
