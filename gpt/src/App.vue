@@ -68,11 +68,11 @@ export default {
           url: this.selectedPreset.url,
           body: { ...this.selectedPreset.body, prompt: "Rewrite this: " + this.prompt }
         }
-      } else if (this.selectedPreset.name === "Shakespear Rewrite") {
+      } else if (this.selectedPreset.name === "Shakespeare Rewrite") {
         return {
           name: this.selectedPreset.name,
           url: this.selectedPreset.url,
-          body: { ...this.selectedPreset.body, prompt: "Rewrite this as if shakespear wrote it: " + this.prompt }
+          body: { ...this.selectedPreset.body, prompt: "Rewrite this as if Shakespeare wrote it: " + this.prompt }
         }
       } else if (this.selectedPreset.name == "Angry chat") {
         return {
@@ -135,12 +135,12 @@ export default {
         }
       },
       {
-        name: "Shakespear Rewrite",
+        name: "Shakespeare Rewrite",
         url: 'https://api.openai.com/v1/completions',
-        start: "Rewrite this as if shakespear wrote it: ",
+        start: "Rewrite this as if Shakespeare wrote it: ",
         body: {
           "model": "text-davinci-003",
-          "prompt": "Rewrite this as if shakespear wrote it: ",
+          "prompt": "Rewrite this as if Shakespeare wrote it: ",
           "max_tokens": 2000,
           "stop": ["\"\"\""]
         }
