@@ -199,7 +199,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`
+            'Authorization': `Bearer YOUR_API_KEY`
           },
           body: JSON.stringify(this.currentPreset.body)
         });
