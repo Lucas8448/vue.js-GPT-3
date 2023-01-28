@@ -1,19 +1,41 @@
 @import './base.css';
 
-.chat-container {
-    width: 500px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 0 auto;
-    bottom: 0;
+
+.container {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 0.4fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "chats chat-container chat-container chat-container"
+        "chats chat-container chat-container chat-container"
+        "chats chat-container chat-container chat-container"
+        "chats chat-container chat-container chat-container"
+        "chats inputs inputs inputs";
+    height: 100vh;
 }
 
-.message {
-    margin-bottom: 10px;
-    font-size: 10px;
-    color: black;
+.chats {
+    grid-area: chats;
+    overflow-y: scroll;
+    background-color: #77B5FE;
+    border-right: 2px solid #333;;
+    
 }
+
+.inputs {
+    grid-area: inputs;
+    background-color: #ddd;
+}
+
+.chat-container {
+    grid-area: chat-container;
+    overflow-y: scroll;
+    background-color: #4682BF;
+    color: var(--vt-c-white-soft);
+    padding: 2%;
+}
+
 
 .input-area {
     -webkit-appearance: none;
@@ -24,7 +46,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
-    max-width: 500px;
     background-color: #ddd;
     border: none;
     padding: 10px 11px 11px 11px;
@@ -37,7 +58,6 @@
 
 .chatbot-dropdown {
     width: 100%;
-    height: 100%;
     background-color: #ddd;
     border: none;
     padding: 10px 11px 11px 11px;
@@ -45,5 +65,5 @@
     box-shadow: none;
     outline: none;
     margin: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
