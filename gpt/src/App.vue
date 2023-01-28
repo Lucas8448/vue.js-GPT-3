@@ -1,20 +1,24 @@
 <template>
-  <div class="chat-container">
-    <div class="messages" v-for="message in messages" :key="message.id">
-      <div class="message" :class="{ 'user': message.sender === 'user', 'chatbot': message.sender === 'chatbot' }">
-        {{ message.sender }} : {{ message.text }}
+  <div class="container">
+    <div class="chats"></div>
+    <div class="chat-container">
+      <div class="messages" v-for="message in messages" :key="message.id">
+        <div class="message" :class="{ 'user': message.sender === 'user', 'chatbot': message.sender === 'chatbot' }">
+          {{ message.sender }} : {{ message.text }}
+        </div>
       </div>
     </div>
-    <div class="input-container">
-      <input type="text" v-model="prompt" @keyup.enter="getResponse" placeholder="Enter your message here"
-        class="input-area">
+    <div class="inputs">
+      <div class="input-container">
+        <input type="text" v-model="prompt" @keyup.enter="getResponse" placeholder="Enter your message here"
+          class="input-area">
+      </div>
+      <select class="chatbot-dropdown" v-model="selectedPreset">
+        <option v-for="preset in presets" :value="preset">{{ preset.name }}</option>
+      </select>
     </div>
-    <select class="chatbot-dropdown" v-model="selectedPreset">
-      <option v-for="preset in presets" :value="preset">{{ preset.name }}</option>
-    </select>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -195,7 +199,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer YOUR_API_KEY`
+            'Authorization': `Bearer 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`
           },
           body: JSON.stringify(this.currentPreset.body)
         });
