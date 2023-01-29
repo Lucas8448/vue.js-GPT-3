@@ -3,7 +3,7 @@
     <div class="chats"></div>
     <div class="chat-container">
       <div class="messages" v-for="message in messages" :key="message.id">
-        <div class="message" :class="{ 'user': message.sender === 'user', 'chatbot': message.sender === 'chatbot' }">
+        <div class="message" :class="{ 'You': message.sender === 'You', 'AI': message.sender === 'AI' }">
           {{ message.sender }} : {{ message.text }}
         </div>
       </div>
