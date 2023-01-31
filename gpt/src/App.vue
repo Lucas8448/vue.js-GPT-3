@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <div class="chats"></div>
-    <div class="chat-container">
-      <div class="messages" v-for="message in messages" :key="message.id">
+    <div class="chats">
+      <div class="chats-title">
+        <h1>Chats</h1>
+      </div>
+    </div>
+    <div class="chat-container" ref="chatContainer">
+      <div class="messages" v-for="message in messages" :key="message.id" >
         <div class="message" :class="{ 'You': message.sender === 'You', 'AI': message.sender === 'AI' }">
           {{ message.sender }} : {{ message.text }}
         </div>
@@ -29,6 +33,11 @@ export default {
       selectedPreset: null,
       presets: [],
     }
+  },
+  updated() {
+    this.$nextTick(() => {
+      this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight
+    })
   },
   computed: {
     currentPreset: function () {
