@@ -1,5 +1,12 @@
 @import './base.css';
 
+.title {
+    font-size: 1.5em;
+    text-align: center;
+    color: var(--vt-c-white-soft);
+    height: 10vh;
+    background-color: #343540;
+}
 
 .container {  
     display: grid;
@@ -8,13 +15,13 @@
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        "chats chat-container chat-container chat-container"
-        "chats chat-container chat-container chat-container"
-        "chats chat-container chat-container chat-container"
-        "chats chat-container chat-container chat-container"
-        "chats inputs inputs inputs";
-    height: 100vh;
-    background-color: #4F4F4F;
+        "options chat-container chat-container chat-container"
+        "options chat-container chat-container chat-container"
+        "options chat-container chat-container chat-container"
+        "options chat-container chat-container chat-container"
+        "options inputs inputs inputs";
+    height: 90vh;
+    background-color: #40414F;
     padding: 1rem;
 }
 
@@ -36,8 +43,8 @@
     border-radius: 10px;
 }
 
-.chats {
-    grid-area: chats;
+.options {
+    grid-area: options;
     max-height: 100%; /* or any other value */
     background-color: #77B5FE;
     overflow: hidden; /* added this */
@@ -45,7 +52,7 @@
     border-radius: 1rem;
 }
 
-.chats-title {
+.options-title {
     text-align: center;
     font-size: 1em;
     background-color: #343540;
@@ -55,7 +62,7 @@
 
 .inputs {
     grid-area: inputs;
-    background-color: #4F4F4F;
+    background-color: #40414F;
     border-radius: 1rem;
 }
 
@@ -102,4 +109,28 @@
     margin: 0.5%;
     box-sizing: border-box;
     
+}
+
+.clear-chat {
+    width: 100%;
+    border: none;
+    padding: 10px 11px 11px 11px;
+    border-radius: 1rem;
+    box-shadow: none;
+    outline: none;
+    margin: 0.5%;
+    box-sizing: border-box;
+}
+
+.clear-chat button {
+    width: 100%;
+    background-color: #343540;
+    color: var(--vt-c-white-soft);
+    border: none;
+    padding: 10px 11px 11px 10px;
+    border-radius: 1rem;
+    box-shadow: none;
+    outline: none;
+    margin: 0.5%;
+    box-sizing: border-box;
 }
