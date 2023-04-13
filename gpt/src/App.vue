@@ -23,6 +23,10 @@
         <input type="text" v-model="prompt" @keyup.enter="getResponse" placeholder="Enter your message here"
           class="input-area">
       </div>
+      <div class="input-container">
+          <input type="text" v-model="apiKey" placeholder="Paste your OpenAI API key here"
+            class="input-area">
+        </div>
       <select class="chatbot-dropdown" v-model="selectedPreset">
         <option v-for="preset in presets" :value="preset">{{ preset.name }}</option>
       </select>
@@ -38,7 +42,8 @@ export default {
       messages: [],
       selectedPreset: null,
       presets: [],
-      previousChats: null
+      previousChats: null,
+      apiKey: null,
     }
   },
   updated() {
@@ -242,7 +247,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`
+            'Authorization': f`Bearer ${this.apiKey}`
           },
           body: JSON.stringify(this.currentPreset.body)
         });
